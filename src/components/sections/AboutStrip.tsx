@@ -1,11 +1,17 @@
+"use client";
+
 import React, { useState } from "react";
-import { Play, Layers, Zap, Hammer, Target } from "lucide-react";
+import { Play } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { LuUsersRound } from "react-icons/lu";
+import { useNavigate } from "react-router-dom";
+
 
 const AboutSection = () => {
   const [videoUrl, setVideoUrl] = useState<string | null>(null);
+const navigate = useNavigate();
+
 
   const cards = [
     {
@@ -34,12 +40,12 @@ const AboutSection = () => {
       title: "O Majstoru",
       features: [
         {
-          icon: <LuUsersRound className="w-6 h-6 text-[#7893AA]"/>,
+          icon: <LuUsersRound className="w-6 h-6 text-[#7893AA]" />,
           text: "Preko 3500+ iskovanih noževa",
           sub: "uglavnom japanskih vrsta",
         },
         {
-          icon: <LuUsersRound className="w-6 h-6 text-[#7893AA]"/>,
+          icon: <LuUsersRound className="w-6 h-6 text-[#7893AA]" />,
           text: "Spoj struke i hobija",
           sub: "u službi visoke kvalitete",
         },
@@ -81,16 +87,17 @@ const AboutSection = () => {
             </button>
 
             {/* Text Content */}
-               <h2 className="text-[22px] md:text-[30px] sm:text-[28px] font-semibold mb-3 absolute top-6 md:top-6 left-6 text-white">{card.title}</h2>
-            <div className="absolute bottom-0 left-0 right-0 px-6 pb-5 pt-20  text-white flex flex-col justify-end">
-           
+            <h2 className="text-[22px] md:text-[30px] sm:text-[28px] font-semibold mb-3 absolute top-6 md:top-6 left-6 text-white">
+              {card.title}
+            </h2>
 
+            <div className="absolute bottom-0 left-0 right-0 px-6 pb-5 pt-20 text-white flex flex-col justify-end">
               <div className="flex items-center justify-between flex-wrap gap-6">
                 <div className="grid md:flex items-center md:gap-8 gap-3">
                   {card.features.map((f, i) => (
                     <div key={i} className="flex items-center gap-3">
                       <div className="flex-shrink-0">{f.icon}</div>
-                      <div className="flex flex-col  leading-tight">
+                      <div className="flex flex-col leading-tight">
                         <span className="font-medium text-[16px]">{f.text}</span>
                         <span className="text-[12px] text-white tracking-wide italic mt-1">
                           {f.sub}
@@ -102,6 +109,9 @@ const AboutSection = () => {
 
                 {/* CTA Button */}
                 <Button
+                  onClick={() => {
+                    if (card.cta === "Više o Karlu") navigate("/category");
+                  }}
                   className={`${card.buttonColor} text-white rounded-full px-6 py-2 text-[14px] font-medium shadow-md`}
                 >
                   {card.cta}

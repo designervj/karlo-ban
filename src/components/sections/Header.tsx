@@ -55,7 +55,7 @@ export default function Header({
         { label: "Nakiri", href: "/nakiri" },
       ],
     },
-    { label: "O Noževima", href: "/o-nozevima" },
+    { label: "O Noževima ", href: "/category" },
     { label: "O Karlo Banu", href: "/o-karlo-banu" },
     { label: "Što drugi kažu", href: "/recenzije" },
   ],

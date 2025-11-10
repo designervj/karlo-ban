@@ -16,14 +16,14 @@ export default function App(){
     {
       label: "Noževi",
       children: [
-        { label: "Petty", href: "/petty" },
-        { label: "Gyuto", href: "/gyuto" },
-        { label: "Santoku", href: "/santoku" },
-        { label: "Nakiri", href: "/nakiri" },
+        { label: "Petty", href: "/category" },
+        { label: "Gyuto", href: "/category" },
+        { label: "Santoku", href: "/category" },
+        { label: "Nakiri", href: "/category" },
       ],
     },
-    { label: "O Noževima", href: "/o-nozevima" },
-    { label: "O Karlo Banu", href: "/o-karlo-banu" },
+    { label: "O Noževima", href: "/category" },
+    { label: "O Karlo Banu", href: "/about" },
     { label: "Što drugi kažu", href: "/recenzije" },
   ];
   return (
@@ -42,7 +42,7 @@ export default function App(){
       <Routes>
         <Route path='/' element={<HomePage/>}/>
         <Route path='/product' element={<ProductPage/>}/>
-        <Route path='/single-product' element={<SingleProductPage/>}/>
+        <Route path='/category' element={<SingleProductPage/>}/>
         <Route path='/about' element={<AboutPage/>}/>
       </Routes>
    

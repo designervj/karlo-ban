@@ -84,14 +84,14 @@ export const SingleProduct: React.FC = () => {
 
     return (
         <section className="bg-white py-12 sm:py-16 md:px-0 px-6">
-            <div className=" md:max-w-7xl max-w-6xl mx-auto md:ms-auto ">
+            <div className=" md:max-w-7xl max-w-6xl mx-auto md:me-0 md:ms-auto ">
                 {/* Small label */}
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-orange-500">
                     Ukratko o noževima u ponudi:
                 </p>
 
                 {/* Tabs */}
-                <div className="mt-4 md:flex grid grid-cols-2 gap-4 overflow-x-auto pb-2">
+                <div className="mt-4 md:flex grid grid-cols-2 items-center gap-4 overflow-x-auto pb-2">
                     {knives.map((knife) => {
                         const isActive = knife.id === activeId;
 
@@ -132,7 +132,7 @@ export const SingleProduct: React.FC = () => {
                 </div>
 
                 {/* Content */}
-                <div className="mt-10 grid gap-10 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+              <div className="mt-10 grid gap-10 md:grid-cols-2 ">
                     {/* Left text column */}
                     <div className="space-y-5">
                         <h2 className="text-[26px] md:text-[32px] font-semibold tracking-tight text-zinc-900 sm:text-3xl">
@@ -169,7 +169,7 @@ export const SingleProduct: React.FC = () => {
 
                     {/* Right gallery column */}
                     {/* Right gallery column */}
-                    <div className="flex flex-col items-stretch gap-4 max-w-[520px] ml-auto">
+                    <div className="flex flex-col items-center pt-11 gap-4  ml-auto">
                         {/* Collage */}
                         <div className="grid grid-cols-[1.3fr_1fr] grid-rows-2 gap-4">
                             {/* big top-left */}

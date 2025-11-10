@@ -4,6 +4,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { fadeInUp, stagger } from "./anim";
+import { Link } from "react-router-dom";
 
 export type Product = { id: string; name: string; priceEUR: number; image: string; size?: string };
 type Category = { id: string; label: string; products: Product[] };
@@ -21,7 +22,8 @@ export default function ProductTabsGrid({ categories }: { categories: Category[]
             <motion.div variants={stagger} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-100px" }} className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4">
               {c.products.map((p) => (
                 <motion.div key={p.id} variants={fadeInUp}>
-                  <Card className="group overflow-hidden">
+                  <Link to={"/product"}>
+                  <Card className="group overflow-hidden" >
                     <div className="aspect-[1/1] w-full overflow-hidden">
                       <img src={p.image} alt={p.name} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" />
                     </div>
@@ -36,6 +38,7 @@ export default function ProductTabsGrid({ categories }: { categories: Category[]
                       {/* <Button className="h-8 px-4 py-2 text-xs">Add To Bag</Button> */}
                     </CardFooter>
                   </Card>
+                  </Link>
                 </motion.div>
               ))}
             </motion.div>
