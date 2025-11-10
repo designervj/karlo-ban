@@ -1,11 +1,13 @@
 "use client";
-import React, { useState, useRef } from "react";
+
+import React, { useState, useEffect } from "react"; // useEffect import kiya
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
-import { ChevronLeft, ChevronRight } from "lucide-react";
 import { BiSolidQuoteAltLeft } from "react-icons/bi";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { NavigationOptions } from "swiper/types";
 
 const testimonials = [
   {
@@ -14,6 +16,7 @@ const testimonials = [
     text: `Apsolutna preporuka za Karla Bana! Još 2015. godine, Karlu sam povjerio izradu nekoliko noževa po mjeri. Danas, deset godina kasnije, ti su noževi još uvijek u aktivnoj upotrebi i prezadovoljan sam s njima.
 
 Kvaliteta izrade, oštrica i samog materijala je nevjerojatna — izdržali su test vremena i intenzivno korištenje bez ikakvog kompromisa. Svaki nož bio je napravljen točno prema mojim potrebama, a ono što Karla izdvaja je njegova sposobnost da te potrebe pretoči u savršen format noža.
+
 Ako tražite kovača koji spaja vrhunsko majstorstvo, izdržljivost i estetski užitak, Karl Ban je prava adresa.`,
     image: "/assets/Image/testimonials-img.png",
     thumbnails: [
@@ -23,20 +26,93 @@ Ako tražite kovača koji spaja vrhunsko majstorstvo, izdržljivost i estetski u
   },
   {
     id: 2,
-    name: "Petar Novak",
-    text: `Karlovi noževi su čudo! Svaki put kad ih koristim, osjećam razliku u preciznosti i balansu. Nevjerojatno iskustvo.`,
-    image: "/assets/Image/testimonials-img.png",
+    name: "Iva Trbović",
+    text: `2017. sam imala priliku isprobati Karlov nož. Trebala sam savršen poklon.
+
+  Tražila sam hrvatsku proizvodnju, visoku kvalitetu i vizualnu privlačnost, i sve sam to pronašla u njemu. A funkcionalnost … 🤯 Samo ga pazite i njegujte i trajat će vam duže nego neki odnosi 😹`,
+    image: "/assets/Image/testimonials-user-img.png",
     thumbnails: [
-      "/assets/Image/testimonials-img-2.png",
+      "/assets/Image/user-testimonials-img.png",
       "/assets/Image/testimonials-img-1.png",
+    ],
+  },
+  {
+    id: 3,
+    name: "Marko Cirimotić",
+    text: `Karlov odnos prema kovini, oštrici i obliku nije samo zanatski. Svaki njegov nož, detalj, nosi njegov rukopis – spoj tradicije, osjećaj za materijal i preciznosti koja dolazi iz poštovanja prema poslu koji radi. 
+
+On nije samo vrstan majstor; on je i visoko obrazovan čovjek, s dubokim razumijevanjem materijala, obrade i estetike. Ponosan sam što ga mogu zvati prijateljem i još ponosniji što mogu svjedočiti njegovom rastu, radu i stvaranju koje nadilazi čisti zanat.
+
+Tko god odluči naručiti ili kupiti Karlov nož, ne kupuje samo alat – kupuje priču, trud i iskreno majstorstvo.`,
+    image: "/assets/Image/testimonials-user-image1.png",
+    thumbnails: [
+      "/assets/Image/user-testimonials-img.png",
+      "/assets/Image/testomonials-img.png",
+    ],
+  },
+  {
+    id: 4,
+    name: "Bruno Kašpar",
+    text: `Dugo poznanstvo od prve kupnje i želja koje sam ubrzo morao i sam izlupat u čeliku se nastavlja i dan danas. 
+
+    Preporučujem Karlove noževe svakom tko pita za kvalitetnu oštricu bilo kakve namjene. Od kuhinjskih noževa, skandinavskih pukko dragulja, pa sve do, za one hrabre, japanskih kamisoria za old school brijačinu :)
+ 
+    Ponosni sam vlasnik preko nekoliko uradaka sa samih početaka gospodinovog majstorstva koje i redovno s guštom koristim. `,
+    image: "/assets/Image/user-testimonials-img.png",
+    thumbnails: [
+      "/assets/Image/testomonials-img.png",
+      "/assets/Image/Marin-Medak-1.png",
+    ],
+  },
+  {
+    id: 5,
+    name: "Nenad Ilić",
+    text: `Noževe Karla Bana koristim godinama i mogu reći da su postali dio svakog mog kuhanja. Prvi koji sam uzeo bio je manji, deblji nož, pravi mali tenk. Reže sve, od sušene slanine i kobasica do tvrdih sireva. Čvrst, nepoderiv i nakon više godina izgleda kao prvog dana, oštar poput britve, kvalitetan bez dileme. Svaki odlazak Karlu i samo kovanje noža su posebna avantura. Nakon uspješnog posla uvijek se nešto brzinski ispeklo da se utaži glad, a nakon dobre klope neizostavna je piva ispred lokalnog dućana, legendarna ‘dućanuša’.
+
+  Kod Karla odradiš i mini tečaj ispravnog brušenja, uz savjet koji japanski kamen kupiti i gdje, naravno bez dodatnog plaćanja. Jedva čekam proširiti ovu kolekciju i dodati još koji Karlov komad, ideja već ima, samo treba vremena i pive! `,
+    image: "/assets/Image/testomonials-img.png",
+    thumbnails: [
+      "/assets/Image/Marin-Medak-1.png",
+      "/assets/Image/Marin-Medak-2.png",
+    ],
+  },
+  {
+    id: 6,
+    name: "Danijel Odak",
+    text: `Moje druženje s Karlom započelo je daaaavne ’21, u mojoj potrazi i istraživanju djedova nauka – kovanja! Kakva slučajnost da naiđem na kovača u istom selu u kojem je i moj djed bio kovač nekad davno, a i Karlov djed! Te iste ’21 mi je pomogao iskovati moj prvi nož a od te iste godine sam ponosni vlasnik njegovog Sanmai Kiritsukea, koji je u svakodnevnoj upotrebi. 
+  Jedan Karlov Kiritsuke sam poslao čak u Kinu, dobrom prijatelju i velikom ljubitelju noževa koji je bio oduševljen izvedbom i kvalitetom. 😳
+
+  Treba li dalje o kvaliteti kad oduševiš postojbinu izrade noževa! Jedva čekam sljedeće druženje i sljedećeg oštrog ljubimca.`,
+    image: "/assets/Image/Marin-Medak-1.png",
+    thumbnails: [
+      "/assets/Image/Marin-Medak-2.png",
+      "/assets/Image/Marin-Medak-3.png",
     ],
   },
 ];
 
-const Testimonials = () => {
+const Testimonials: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState(1);
-  const prevRef = useRef<HTMLButtonElement>(null);
-  const nextRef = useRef<HTMLButtonElement>(null);
+  // 🌟 **FIX #1: Dono state add karein**
+  const [isMobile, setIsMobile] = useState(false);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  // 🌟 **FIX #2: useEffect se screen size check karein aur mounted state set karein**
+  useEffect(() => {
+    const checkIsMobile = () => {
+      // 768px Tailwind ka 'md' breakpoint hai
+      setIsMobile(window.innerWidth < 768);
+    };
+
+    checkIsMobile(); // Pehli baar run karein
+    window.addEventListener("resize", checkIsMobile); // Resize par listen karein
+    setHasMounted(true); // Batayein ki component client par load ho chuka hai
+
+    // Cleanup function
+    return () => {
+      window.removeEventListener("resize", checkIsMobile);
+    };
+  }, []); // Empty array (sirf ek baar run hoga)
 
   return (
     <section className="container-xl mx-auto px-4 py-16 relative">
@@ -45,89 +121,85 @@ const Testimonials = () => {
       </h3>
 
       <div className="max-w-7xl mx-auto">
-        <Swiper
-          modules={[Navigation]}
-          navigation={{
-            prevEl: prevRef.current,
-            nextEl: nextRef.current,
-          }}
-          onBeforeInit={(swiper) => {
-            // ✅ attach buttons before swiper initializes
-            // (fixes “arrows not working” issue)
-            if (typeof swiper.params.navigation !== "boolean") {
-              swiper.params.navigation.prevEl = prevRef.current;
-              swiper.params.navigation.nextEl = nextRef.current;
-            }
-          }}
-          spaceBetween={50}
-          slidesPerView={1}
-          onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex + 1)}
-          className="mt-10"
-        >
-          {testimonials.map((item) => (
-            <SwiperSlide key={item.id}>
-              <div className="grid md:grid-cols-2 gap-10 items-center">
-                {/* LEFT SIDE */}
-                <div>
-                  <p className="text-[#4F4640] text-[16px] leading-relaxed whitespace-pre-line">
-                    {item.text}
-                  </p>
-                  <p className="mt-6 font-semibold text-[#4F4640]">
-                    {item.name}
-                  </p>
-                </div>
+        {/* Swiper ko tab tak render na karein jab tak 'hasMounted' true na ho */}
+        {hasMounted && (
+          <Swiper
+            modules={[Navigation]}
+            spaceBetween={40}
+            slidesPerView={1}
+            loop={false}
+            autoHeight={isMobile} // <-- SIRF mobile par autoHeight
+            onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex + 1)}
+            onBeforeInit={(swiper) => {
+              const navigation = swiper.params.navigation as NavigationOptions;
+              navigation.prevEl = ".prev-btn";
+              navigation.nextEl = ".next-btn";
+            }}
+            navigation={{
+              nextEl: ".next-btn",
+              prevEl: ".prev-btn",
+            }}
+            className="mt-10"
+          >
+            {testimonials.map((item) => (
+              <SwiperSlide key={item.id}>
+                {/* 🌟 **FIX #3: Alignment ke liye Tailwind prefixes ka use karein** */}
+                {/* Mobile par items-start, md (desktop) par items-center */}
+                <div className="grid md:grid-cols-2 gap-10 items-start md:items-center">
+                  {/* LEFT SIDE */}
+                  <div className="relative">
+                    <p className="text-[#4F4640] text-[16px] leading-relaxed whitespace-pre-line">
+                      {item.text}
+                    </p>
+                    <p className="mt-6 font-semibold text-[#4F4640]">
+                      {item.name}
+                    </p>
+                  </div>
 
-                {/* RIGHT SIDE */}
-                <div className="relative flex flex-col items-center justify-center">
-                  <BiSolidQuoteAltLeft
-                    size={45}
-                    className="absolute top-16 md:left-80 left-64 -translate-x-1/2 text-gray-200"
-                  />
-
-                  <div className="flex items-end justify-center gap-4 flex-wrap">
-                    <div>
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="h-[300px] object-cover rounded-2xl shadow-md"
-                      />
-                    </div>
-
-                    <div className="gap-4 flex">
-                      {item.thumbnails.map((thumb, index) => (
+                  {/* RIGHT SIDE */}
+                  <div className="relative flex flex-col items-center justify-center">
+                    {/* Quote icon */}
+                    <BiSolidQuoteAltLeft
+                      size={40}
+                      className="absolute top-16 md:left-80 left-64 -translate-x-1/2 text-gray-200"
+                    />
+                    <div className="grid sm:flex md:flex items-end justify-center gap-4">
+                      <div>
                         <img
-                          key={index}
-                          src={thumb}
-                          alt="thumb"
-                          className="w-[120px] h-[120px] object-cover rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
+                          src={item.image}
+                          alt={item.name}
+                          className="h-[260px] md:h-[300px] object-cover rounded-2xl shadow-md"
                         />
-                      ))}
+                      </div>
+                      <div className="gap-4 flex">
+                        {item.thumbnails.map((thumb, index) => (
+                          <img
+                            key={index}
+                            src={thumb}
+                            alt={`${item.name} thumbnail ${index + 1}`}
+                            className="w-[90px] h-[90px] md:w-[120px] md:h-[120px] object-cover rounded-xl opacity-70 hover:opacity-100 transition-all duration-300"
+                          />
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </SwiperSlide>
-          ))}
-        </Swiper>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
 
-        {/* Navigation Buttons */}
+        {/* Pagination + Navigation */}
         <div className="flex items-center justify-center gap-4 mt-10">
-          <button
-            ref={prevRef}
-            className="flex items-center justify-center md:w-40 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300"
-          >
+          <button className="prev-btn flex items-center justify-center md:w-36 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300">
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <button
-            ref={nextRef}
-            className="flex items-center justify-center md:w-40 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300"
-          >
+          <button className="next-btn flex items-center justify-center md:w-36 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300">
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
 
-        {/* Pagination Index */}
         <span className="text-[#636B78] text-[11px] font-medium flex justify-center italic mt-3">
           {activeIndex} / {testimonials.length}
         </span>

@@ -97,14 +97,14 @@ export default function AboutKarlo() {
             <div className="flex items-center gap-6">
               <button
                 ref={prevRef}
-                className="flex items-center justify-center md:w-40 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300"
+                className="flex items-center justify-center md:w-36 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300"
               >
 
                 <ChevronLeft className="w-5 h-5" />
               </button>
               <button
                 ref={nextRef}
-                className="flex items-center justify-center md:w-40 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300"
+                className="flex items-center justify-center md:w-36 w-24 h-10 bg-[#EDEDED] rounded-full text-[#FF7020] hover:bg-[#FFE8D9] transition-all duration-300"
               >
                 <ChevronRight className="w-5 h-5" />
               </button>

@@ -3,20 +3,17 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import { FaPlay } from "react-icons/fa";
 import {
   Dialog,
   DialogContent,
   DialogOverlay,
 } from "@/components/ui/dialog";
-import ReactPlayer from "react-player";
 import { fadeInUp } from "./anim";
-import bgImages from "../../../public/assets/hero/hero-img.png"
-import { FaPlay } from "react-icons/fa";
 
-// ✅ Public demo background + fallback
-const bgImage =
-  "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=1500&q=80";
+// We don't need to import the background image, as it's in the /public folder
+// import bgImages from "../../../public/assets/hero/hero-img.png"; // <- REMOVED THIS LINE
+
 const fallbackImg =
   "https://images.unsplash.com/photo-1605902711622-cfb43c4437b8?auto=format&fit=crop&w=1500&q=80";
 
@@ -31,20 +28,20 @@ export default function Hero({
   title = "Izuzetna oštrina nadomak ruke",
   subtitle = "Autentični, 100% ručno kovani noževi, izrađeni da nadžive generacije.",
   cta = { label: "Kuharski Noževi" },
-  videoUrl = "https://www.w3schools.com/html/mov_bbb.mp4", // ✅ sample video
+  videoUrl = "https://www.w3schools.com/html/mov_bbb.mp4",
 }: HeroProps) {
   const [open, setOpen] = useState(false);
-  const [videoError, setVideoError] = useState(false);
 
   return (
     <section className="relative isolate container-xl mx-auto rounded-2xl overflow-hidden mt-7 shadow-lg">
       {/* 🔹 Background Image */}
       <div
         className="absolute inset-0 bg-cover bg-center transition-all duration-700"
-        style={{ backgroundImage: `url(${bgImages})` }}
+        // Use a root-relative path to the image in the /public directory
+        style={{ backgroundImage: `url('/assets/hero/hero-img.png')` }}
         aria-hidden
       />
-      <div className="absolute inset-0 " />
+      <div className="absolute inset-0 bg-black/40" /> {/* overlay */}
 
       {/* 🔹 Main Content */}
       <div className="relative z-10 text-center pb-16 pt-28 sm:py-36 lg:pt-60 lg:pb-16 flex flex-col items-center justify-center">
@@ -58,7 +55,7 @@ export default function Hero({
           whileTap={{ scale: 0.95 }}
           className="flex items-center justify-center bg-white/20 backdrop-blur-md w-16 h-16 rounded-full border border-none shadow-lg mb-6"
         >
-          <FaPlay className="text-white w-4 h-4 text-center " />
+          <FaPlay className="text-white w-4 h-4 text-center" />
         </motion.button>
 
         {/* 🔹 Title */}
@@ -93,9 +90,9 @@ export default function Hero({
           >
             <Button
               onClick={cta.onClick}
-              className="px-6 py-3 h-auto bg-[#FF7020] hover:bg-[#FF7020] text-white rounded-full shadow-md"
+              className="px-6 py-3 h-auto bg-[#FF7020] hover:bg-[#FF7020]/90 text-white rounded-full shadow-md"
             >
-            Kuharski Noževi
+              {cta.label}
             </Button>
           </motion.div>
         )}
@@ -103,29 +100,25 @@ export default function Hero({
 
       {/* 🔹 Video Modal */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogOverlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40" />
-        <DialogContent className="max-w-3xl p-0 overflow-hidden rounded-xl bg-black relative z-50">
-          <div className="relative aspect-video bg-black">
-            {videoError ? (
-              <img
-                src={fallbackImg}
-                alt="Fallback"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <ReactPlayer
-                // url={videoUrl}
-                width="100%"
-                height="100%"
-                controls
-                playing
-                muted
-                loop
-                onError={() => setVideoError(true)}
-                className="absolute top-0 left-0"
-              />
-            )}
-          </div>
+        <DialogOverlay />
+        {/* CHANGED: Replaced <iframe> with <video> tag 
+          - Added `controls` to show player controls.
+          - Added `autoPlay` to start the video when the modal opens.
+          - Used `className="w-full h-auto"` for responsive aspect ratio.
+          - Set `bg-black` on content for a better viewing experience.
+        */}
+        <DialogContent className="max-w-3xl p-0 overflow-hidden border-none rounded-xl bg-black">
+          {videoUrl && (
+            <video
+              className="w-full h-auto"
+              controls
+              autoPlay
+              src={videoUrl}
+              title="Video Player"
+            >
+              Your browser does not support the video tag.
+            </video>
+          )}
         </DialogContent>
       </Dialog>
     </section>

@@ -105,29 +105,25 @@ export default function AboutHeroSection({
 
       {/* 🔹 Video Modal */}
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogOverlay className="fixed inset-0 bg-black/80 backdrop-blur-sm z-40" />
-        <DialogContent className="max-w-3xl p-0 overflow-hidden rounded-xl bg-black relative z-50">
-          <div className="relative aspect-video bg-black">
-            {videoError ? (
-              <img
-                src={fallbackImg}
-                alt="Fallback"
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <ReactPlayer
-                // url={videoUrl}
-                width="100%"
-                height="100%"
-                controls
-                playing
-                muted
-                loop
-                onError={() => setVideoError(true)}
-                className="absolute top-0 left-0"
-              />
-            )}
-          </div>
+        <DialogOverlay />
+        {/* CHANGED: Replaced <iframe> with <video> tag 
+          - Added `controls` to show player controls.
+          - Added `autoPlay` to start the video when the modal opens.
+          - Used `className="w-full h-auto"` for responsive aspect ratio.
+          - Set `bg-black` on content for a better viewing experience.
+        */}
+        <DialogContent className="max-w-3xl p-0 overflow-hidden border-none rounded-xl bg-black">
+          {videoUrl && (
+            <video
+              className="w-full h-auto"
+              controls
+              autoPlay
+              src={videoUrl}
+              title="Video Player"
+            >
+              Your browser does not support the video tag.
+            </video>
+          )}
         </DialogContent>
       </Dialog>
     </section>
